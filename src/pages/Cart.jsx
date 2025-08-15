@@ -1,151 +1,163 @@
-// src/pages/Cart.jsx
-import React from "react";
-
-import pizzaImg from "../assets/image/pizza.png";
-import milkshakeImg from "../assets/image/milkshake.png";
-import cheeseSauceImg from "../assets/image/cheese-sauce.png";
-import bbqSauceImg from "../assets/image/bbq-sauce.png";
-import ranchImg from "../assets/image/ranch.png";
-import sourCreamImg from "../assets/image/sour-cream.png";
-import mayoImg from "../assets/image/mayo.png";
-
-const cartItems = [
-  {
-    id: 1,
-    name: "С креветками и трюфелями",
-    description:
-      "Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г",
-    price: 120,
-    image: pizzaImg,
-  },
-  {
-    id: 2,
-    name: "С креветками и трюфелями",
-    description:
-      "Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г",
-    price: 120,
-    image: pizzaImg,
-  },
-];
-
-const addOns = [
-  { id: 1, name: "Молочный коктейль с ...", price: 120, image: milkshakeImg },
-  { id: 2, name: "Молочный коктейль с ...", price: 120, image: milkshakeImg },
-  { id: 3, name: "Молочный коктейль с ...", price: 120, image: milkshakeImg },
-  { id: 4, name: "Молочный коктейль с ...", price: 120, image: milkshakeImg },
-];
-
-const sauces = [
-  { id: 1, name: "Сырный соус", price: 120, image: cheeseSauceImg },
-  { id: 2, name: "Барбекю", price: 120, image: bbqSauceImg },
-  { id: 3, name: "Ранч", price: 120, image: ranchImg },
-  { id: 4, name: "Сметана", price: 120, image: sourCreamImg },
-  { id: 5, name: "Майонезный соус", price: 120, image: mayoImg },
-  { id: 6, name: "Сырный соус", price: 120, image: cheeseSauceImg },
-];
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { removeFromCart, increaseQuantity, decreaseQuantity, clearCart } from '../store/cartSlice'
 
 const Cart = () => {
-  return (
-    <section className="py-8">
-      <div className="container">
+  const dispatch = useDispatch()
+  const { items, totalPrice, totalQuantity } = useSelector(state => state.cart)
+  
+  const handleRemoveFromCart = (id, name) => {
+    dispatch(removeFromCart(id))
+    toast.error(`${name} удален из корзины`, {
+      position: "top-right",
+      autoClose: 2000,
+    })
+  }
 
-        <h1 className="text-yellow-400 text-3xl font-extrabold mb-6">
-          Корзина
-        </h1>
+  const handleIncreaseQuantity = (id, name) => {
+    dispatch(increaseQuantity(id))
+    toast.info(`Количество ${name} увеличено`, {
+      position: "top-right",
+      autoClose: 1500,
+    })
+  }
 
-        <div className="space-y-4">
-          {cartItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center justify-between border-b pb-4"
-            >
-              <div className="flex items-center gap-4">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-16 h-16 object-contain"
-                />
-                <div>
-                  <h3 className="font-bold">{item.name}</h3>
-                  <p className="text-sm text-gray-600">{item.description}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="font-bold text-lg">{item.price} ₽</span>
-                <div className="flex items-center border rounded">
-                  <button className="px-2">-</button>
-                  <span className="px-2">1</span>
-                  <button className="px-2">+</button>
-                </div>
-                <button className="text-gray-400 hover:text-red-500">✕</button>
-              </div>
-            </div>
-          ))}
-        </div>
+  const handleDecreaseQuantity = (id, name) => {
+    dispatch(decreaseQuantity(id))
+    toast.info(`Количество ${name} уменьшено`, {
+      position: "top-right",
+      autoClose: 1500,
+    })
+  }
 
-        <h2 className="font-bold text-xl mt-10 mb-4">Добавить к заказу?</h2>
-        <div className="flex gap-4 overflow-x-auto">
-          {addOns.map((item) => (
-            <div
-              key={item.id}
-              className="flex-shrink-0 w-[150px] text-center border rounded-lg p-2"
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-20 h-20 mx-auto"
-              />
-              <p className="mt-2 text-sm">{item.name}</p>
-              <p className="text-red-500 font-bold">от {item.price} ₽</p>
-            </div>
-          ))}
-        </div>
+  const handleClearCart = () => {
+    dispatch(clearCart())
+    toast.warning('Корзина очищена', {
+      position: "top-right",
+      autoClose: 2000,
+    })
+  }
 
-        <h2 className="font-bold text-xl mt-10 mb-4">
-          Соусы к бортикам и закускам
-        </h2>
-        <div className="flex gap-4 overflow-x-auto">
-          {sauces.map((item) => (
-            <div
-              key={item.id}
-              className="flex-shrink-0 w-[150px] text-center border rounded-lg p-2"
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-16 h-16 mx-auto"
-              />
-              <p className="mt-2 text-sm">{item.name}</p>
-              <p className="text-red-500 font-bold">от {item.price} ₽</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-10 flex items-center gap-2">
-          <input
-            type="text"
-            placeholder="Введите промокод"
-            className="border p-2 rounded w-60"
-          />
-          <button className="bg-yellow-400 px-4 py-2 rounded font-bold">
-            Применить
+  if (items.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-24 h-24 mx-auto mb-6 bg-gray-200 rounded-full flex items-center justify-center">
+            <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+          </div>
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Корзина пустая</h2>
+          <p className="text-gray-600 text-lg mb-8">Добавьте товары в корзину для оформления заказа</p>
+          <button 
+            onClick={() => window.history.back()}
+            className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+          >
+            Вернуться к покупкам
           </button>
         </div>
+      </div>
+    )
+  }
 
-        <div className="mt-6 flex justify-between items-center">
-          <p className="text-lg">
-            Сумма заказа:{" "}
-            <span className="font-bold text-yellow-500 text-2xl">
-              1 048 ₽
-            </span>
-          </p>
-          <button className="bg-yellow-400 px-6 py-3 rounded font-bold">
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+      <div className="container">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+            Корзина ({totalQuantity} товаров)
+          </h1>
+          <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 mx-auto rounded-full"></div>
+        </div>
+
+        {/* Cart Items */}
+        <div className="space-y-6 mb-12">
+          {items.map(item => (
+            <div key={item.id} className="bg-white rounded-2xl shadow-lg p-6 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              <div className="flex items-center">
+                {/* Product Image */}
+                <div className="w-24 h-24 rounded-xl overflow-hidden mr-6 flex-shrink-0">
+                  <img 
+                    src={item.image} 
+                    alt={item.name} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Product Info */}
+                <div className="flex-1 mr-6">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">{item.name}</h3>
+                  {item.description && (
+                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">{item.description}</p>
+                  )}
+                  <div className="text-2xl font-bold text-yellow-500">{item.price} ₽</div>
+                </div>
+
+                {/* Quantity Controls */}
+                <div className="flex items-center gap-4 mr-6">
+                  <div className="flex items-center bg-gray-100 rounded-xl p-2">
+                    <button 
+                      onClick={() => handleDecreaseQuantity(item.id, item.name)}
+                      className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors disabled:opacity-50"
+                      disabled={item.quantity <= 1}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                      </svg>
+                    </button>
+                    <span className="px-4 py-1 text-lg font-semibold text-gray-800">{item.quantity}</span>
+                    <button 
+                      onClick={() => handleIncreaseQuantity(item.id, item.name)}
+                      className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Remove Button */}
+                <button 
+                  onClick={() => handleRemoveFromCart(item.id, item.name)}
+                  className="bg-red-500 hover:bg-red-600 text-white p-3 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Summary */}
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl font-bold text-gray-800">Итого: {totalPrice} ₽</h2>
+            <button 
+              onClick={handleClearCart}
+              className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              Очистить корзину
+            </button>
+          </div>
+          
+          <button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-xl flex items-center justify-center gap-3">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
             Оформить заказ
           </button>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  )
+}
 
-export default Cart;
+export default Cart

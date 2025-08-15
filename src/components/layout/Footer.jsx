@@ -16,15 +16,15 @@ const Footer = () => {
         <p className=''>Правовая информация</p>
         <div className=' relative left-47 '>
        <div className='flex gap-4'>
-           <button className=' border px-8 py-2 rounded-[13px] '><img src={Icon} alt="" /></button>
-        <button className=' border px-10 py-2 rounded-[13px] '><img src={Icon} alt="" /></button>
-        <button className=' border px-10 py-2 rounded-[13px] '><img src={Icon} alt="" /></button>
-        <button className=' border px-10 py-2 rounded-[13px] '><img src={Icon} alt="" /></button> 
+           <button className=' border border-0.5 border-gray-500 px-8 py-2 rounded-[13px] '><img src={Icon} alt="" /></button>
+        <button className=' border border-0.5 border-gray-500 px-10 py-2 rounded-[13px] '><img src={Icon} alt="" /></button>
+        <button className=' border border-0.5 border-gray-500 px-10 py-2 rounded-[13px] '><img src={Icon} alt="" /></button>
+        <button className=' border border-0.5 border-gray-500 px-10 py-2 rounded-[13px] '><img src={Icon} alt="" /></button> 
        </div>
         <div className=' mt-4 flex gap-4'>
-        <button className=' border px-10 py-2 rounded-[13px] '><img src={Icon} alt="" /></button> 
-        <button className=' border px-10 py-2 rounded-[13px] '><img src={Icon} alt="" /></button> 
-        <button className=' border px-10 py-3 rounded-[13px] text-[19px]  '>Написать нам</button> 
+        <button className=' border border-0.5 border-gray-500 px-10 py-2 rounded-[13px] '><img src={Icon} alt="" /></button> 
+        <button className=' border border-0.5 border-gray-500 px-10 py-2 rounded-[13px] '><img src={Icon} alt="" /></button> 
+        <button className=' border border-0.5 border-gray-500 px-10 py-3 rounded-[13px] text-[19px]  '>Написать нам</button> 
         </div>
         </div>
         

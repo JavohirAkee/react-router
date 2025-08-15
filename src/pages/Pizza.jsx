@@ -1,150 +1,58 @@
 import React from 'react'
-import pizza from '../assets/image/pizza.png'
-
-const pizzaData = [
-  {
-    id: 1,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 2,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 3,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 4,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-    {
-    id: 1,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 2,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 3,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 4,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-    {
-    id: 1,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 2,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 3,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 4,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-    {
-    id: 1,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 2,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 3,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  },
-  {
-    id: 4,
-    name: 'С креветками и трюфелями',
-    description: 'Домашнаяя паста феттуччине, сливочный соус, креветки, трюфельное масло, черный перец, пармезан.350 г',
-    price: 'от 600 ₽',
-    image: pizza
-  }
-]
+import ProductCard from '../components/layout/ProductCard'
+import { pizzaData } from '../data/products'
 
 const Pizza = () => {
   return (
-    <section>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-16">
       <div className="container">
-        <div className="mt-14">
-          <h1 className="font-extrabold text-3xl leading-[100%] text-yellow-300 mb-7">Pizza</h1>
-          <div className="flex justify-between flex-wrap gap-5">
-            {pizzaData.map((item) => (
-              <div key={item.id} className="w-[256px] h-[468px] bg-white rounded-lg shadow-md 
-                 transition-transform duration-300 ease-in-out 
-                 hover:-translate-y-2 hover:shadow-lg">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <h1 className="text-5xl font-bold text-gray-800 mb-6">
+            Наша <span className="text-amber-400">Пицца</span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Откройте для себя аутентичные вкусы Италии с нашими традиционными рецептами пиццы, 
+            приготовленными из свежих ингредиентов и с любовью к кулинарному искусству
+          </p>
+          <div className="w-32 h-1 bg-gradient-to-r from-amber-400 to-amber-500 mx-auto mt-8 rounded-full"></div>
+        </div>
 
-                <img className='w-full transition-transform duration-300 ease-in-out hover:scale-105' src={item.image} alt="pizza" />
-                <h3 className="text-gray-500 font-extrabold text-2xl leading-7">{item.name}</h3>
-                <p className="text-gray-400 font-medium text-[13px] leading-[19px] mt-4">
-                  {item.description}
-                </p>
-                <div className="flex items-center gap-7 mt-4">
-                  <h3 className="font-bold text-2xl leading-[19px]">{item.price}</h3>
-                  <button className="w-32 h-9 bg-yellow-300 text-white rounded-[8px] font-bold text-[13px]">
-                    В корзину
-                  </button>
-                </div>
-              </div>
-            ))}
+        {/* Pizza Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-items-center">
+          {pizzaData.map((item) => (
+            <ProductCard
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              description={item.description}
+              price={item.price}
+              image={item.image}
+            />
+          ))}
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center mt-20">
+          <div className="bg-white rounded-2xl shadow-xl p-12 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">
+              Готовы заказать вкусную пиццу?
+            </h2>
+            <p className="text-lg text-gray-600 mb-8">
+              Выберите свои любимые ингредиенты и насладитесь аутентичным итальянским вкусом прямо у вас дома
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                Заказать сейчас
+              </button>
+              <button className="border-2 border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105">
+                Посмотреть меню
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
