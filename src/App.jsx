@@ -14,6 +14,7 @@ import Antipasti from './pages/Antipasti'
 import Promotions from './pages/Promotions'
 import Contact from './pages/Contact'
 import Cart from './pages/Cart'
+import Favorite from './pages/ Favorite'
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
           <Route path='/promotions' element={<Promotions />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/favorite' element={<Favorite />} />
         </Routes>
       </main>
       <Footer />

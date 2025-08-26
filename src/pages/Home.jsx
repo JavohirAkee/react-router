@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import ProductCard from '../components/layout/ProductCard'
 import yellow from '../assets/image/yellow-img.png'
 import black from '../assets/image/black-img.png'
 import { pizzaData, pastaData } from '../data/products'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleFavorite } from '../store/favoritesSlice'
 
 const Home = () => {
-  // Get first 4 products from pizza and pasta for featured section
-  const featuredProducts = [...pizzaData.slice(0, 4), ...pastaData.slice(0, 4)]
+  const featuredProducts = [...pizzaData.slice(0, 8), ...pastaData.slice(0, 8)]
+  const dispatch = useDispatch()
+  const favoriteItems = useSelector(state => state.favorites.items)
   
-  // State for rotating images
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const images = [yellow, black]
 
-  // Rotate images every 1 second
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
-    }, 1000) // 1 second = 1000ms
+    }, 1000) 
 
     return () => clearInterval(interval)
   }, [images.length])
@@ -24,7 +25,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Hero Section */}
-      <section className="py-16">
+      <section className="py-12 md:py-16">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div className="space-y-6">
@@ -44,11 +45,11 @@ const Home = () => {
               </div>
             </div>
             <div className="relative">
-              <div className="relative w-full h-96">
+              <div className="relative w-full h-56 sm:h-72 md:h-80 lg:h-96">
                 {images.map((image, index) => (
                   <img 
                     key={index}
-                    className={`absolute inset-0 w-full h-full rounded-2xl shadow-2xl transition-all duration-500 ${
+                    className={`absolute inset-0 w-full h-full rounded-2xl shadow-2xl transition-all duration-500 object-contain bg-white ${
                       currentImageIndex === index 
                         ? 'opacity-100 scale-100' 
                         : 'opacity-0 scale-95'
@@ -75,25 +76,36 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {featuredProducts.slice(0, 4).map(item => (
-              <div key={item.id} className="bg-white rounded-2xl shadow-lg p-6 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
-                <div className="w-16 h-16 rounded-xl overflow-hidden mb-4 mx-auto p-1">
-                  <img 
-                    src={item.image} 
-                    alt={item.name} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 rounded-lg"
-                  />
-                </div>
-                <div className="text-center">
-                  <h3 className="font-bold text-lg text-gray-800 mb-2 group-hover:text-amber-400 transition-colors">
-                    {item.name}
-                  </h3>
-                  <div className="text-2xl font-bold text-amber-400">
-                    {item.price}
+            {featuredProducts.slice(0, 4).map(item => {
+              const isFavorite = favoriteItems.some(f => f.id === item.id)
+              return (
+                <div key={item.id} className="bg-white rounded-2xl shadow-lg p-6 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group relative">
+                  <button
+                    onClick={() => dispatch(toggleFavorite({ id: item.id, name: item.name, image: item.image, description: item.description, price: parseInt(String(item.price).replace(/\D/g, '')) || 0 }))}
+                    className={`absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-colors ${isFavorite ? 'bg-red-500' : 'bg-white hover:bg-gray-100'}`}
+                  >
+                    <svg className={`w-5 h-5 ${isFavorite ? 'text-white' : 'text-red-500'}`} fill={isFavorite ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </button>
+                  <div className="w-16 h-16 rounded-xl overflow-hidden mb-4 mx-auto p-1">
+                    <img 
+                      src={item.image} 
+                      alt={item.name} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 rounded-lg"
+                    />
+                  </div>
+                  <div className="text-center">
+                    <h3 className="font-bold text-lg text-gray-800 mb-2 group-hover:text-amber-400 transition-colors">
+                      {item.name}
+                    </h3>
+                    <div className="text-2xl font-bold text-amber-400">
+                      {item.price}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

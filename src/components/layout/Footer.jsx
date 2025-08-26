@@ -6,12 +6,12 @@ const Footer = () => {
   return (
   <footer className='mt-28'>
       <div className='container '>
-      <div className='flex items-center font-bold text-[21px] justify-between w-[1110px] '>
-         <img src={Logo} alt="" />  
-         <h1 className='relative right-6 '>Остались вопросы? А мы всегда на связи:</h1>
+      <div className='flex flex-col items-center text-center md:flex-row md:justify-between md:items-center md:text-left font-bold text-[21px] w-full'>
+         <img className='w-32 mb-4 md:mb-0' src={Logo} alt="" />  
+         <h1 className='md:relative md:right-6'>Остались вопросы? А мы всегда на связи:</h1>
       </div>
 
-       <div className='flex space-x-10 font-bold text-[16px] leading-7 mt-10   '>
+       <div className='flex flex-col mt-10 space-y-4 md:flex-row md:space-y-0 md:space-x-10 font-bold text-[16px] leading-7  '>
         <p>Калорийность и состав</p>
         <p className=''>Правовая информация</p>
         <div className=' relative left-47 '>

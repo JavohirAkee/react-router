@@ -149,7 +149,7 @@ export const pastaData = [
   },
   {
     id: 'pasta-6',
-    name: 'Фузилли с морепродуктами',
+    name: 'Фузилли ',
     description: 'Спиральная паста с креветками, кальмарами и томатным соусом. 360 г',
     price: 'от 580 ₽',
     image: pastaImg,
